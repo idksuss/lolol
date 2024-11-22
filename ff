@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/hung
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "Skull Hub | [🐟] Fisch",
+   Name = "Skull Hub | [🐟] Fisch (Beta)",
    LoadingTitle = "Skull Hub",
    LoadingSubtitle = "by hungquan99",
    Theme = "Default",
@@ -452,6 +452,21 @@ local misc = Window:CreateTab("Misc", "boxes")
 local setting = Window:CreateTab("UI Settings", "settings-2")
 
 --Main
+local Section = ma:CreateSection("🤓 Info")
+
+local infoButton = ma:CreateButton({
+   Name = "Discord",
+   Callback = function()
+      setclipboard("https://discord.gg/NxHT2rSynR")
+      Rayfield:Notify({
+         Title = "Skull Hub",
+         Content = "💀 Copied Skull Hub discord invite link!",
+         Duration = 5,
+         Image = "check",
+      })
+   end,
+})
+
 local Section = ma:CreateSection("🎣 Auto Cast")
 local acastmode = ma:CreateDropdown({
    Name = "🎣 Select Cast Mode",
