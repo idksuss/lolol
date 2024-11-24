@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/hung
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "Skull Hub | [🐟] Fisch (Beta)",
+   Name = "Skull Hub | [🐟] Fisch",
    LoadingTitle = "Skull Hub",
    LoadingSubtitle = "by hungquan99",
    Theme = "Default",
@@ -490,6 +490,16 @@ local acast = ma:CreateToggle({
    Callback = function(AcastV)
          _G.acast = AcastV
          AutoCast()
+   end,
+})
+
+local freezep = ma:CreateToggle({
+   Name = "❄ Freeze Player",
+   CurrentValue = false,
+   Flag = "freezep",
+   Callback = function(AfreezepV)
+         _G.freezep = AfreezepV
+         FreezePlayer()
    end,
 })
 
@@ -1018,15 +1028,6 @@ local pnivision = misc:CreateToggle({
 })
 
 local Section = misc:CreateSection("🙍‍♂️ Local Player")
-local freezep = misc:CreateToggle({
-   Name = "❄ Freeze Player",
-   CurrentValue = false,
-   Flag = "freezep",
-   Callback = function(AfreezepV)
-         _G.freezep = AfreezepV
-         FreezePlayer()
-   end,
-})
 
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
