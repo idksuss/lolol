@@ -24,10 +24,10 @@ local Window = Rayfield:CreateWindow({
       
    KeySystem = false,
    KeySettings = {
-      Title = "[🍄] Fisch",
+      Title = "Skull Hub",
       Subtitle = "🔑 Key System",
-      Note = "Password: Depths",
-      Key = {"Depths"}
+      Note = "Join discord https://discord.gg/NxHT2rSynR to get key.",
+      Key = {"hungquan99"}
    }
 })
 
@@ -360,7 +360,6 @@ local function Espisonade()
                textLabel.Text = "Isonade"
                billboardGui.Parent = isonade
 
-               -- Получаем координаты зоны Isonade
                local position = isonade.Position
                local coords = string.format("X: %.2f, Y: %.2f, Z: %.2f", position.X, position.Y, position.Z)
 
@@ -695,7 +694,7 @@ local tlocation = tp:CreateDropdown({
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
       "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
-      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
+      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike", "🦴 Uncharted Island"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -742,6 +741,8 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(1700, 125, -2500)
          elseif selectedLocation == "⚒ Harvesters Spike" then
             teleportPlayer(-1257, 139, 1550)
+         elseif selectedLocation == "🦴 Uncharted Island" then
+            teleportPlayer(4033, 132, 77)
          end
    end,
 })
@@ -750,7 +751,7 @@ local Section = tp:CreateSection("🛠 Items")
 local ttotem = tp:CreateDropdown({
    Name = "🗿 Select Totem",
    Options = {
-      "🕰️ Sundial", 
+      "🌄 Sundial", 
       "🌌 Aurora", 
       "🌬️ Windset", 
       "💨 Smokescreen", 
@@ -790,7 +791,8 @@ local tfishingRods = tp:CreateDropdown({
       "🔍 Kings Rod",
       "🛠️ Reinforced Rod",
       "🏴‍☠️ Scurvy Rod",
-      "🏮 Rod Of The Depths"
+      "🏮 Rod Of The Depths",
+      "🦴 Relic Rod"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -822,6 +824,8 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(-2825, 215, 1512)
          elseif selectedRod == "🏮 Rod Of The Depths" then
             teleportPlayer(1703, -903, 1443)
+         elseif selectedRod == "🦴 Relic Rod" then
+            teleportPlayer(4098, 40, 30)
          end
    end,
 })
@@ -873,6 +877,34 @@ local titems = tp:CreateDropdown({
    end,
 })
 
+local Divider = tp:CreateDivider()
+
+local teleportab = tp:CreateButton({
+   Name = "🦴 Teleport To Archaeologists Boat",
+   Callback = function()
+      local boat = workspace["Archaeologists Boat"]
+      local boatModel = boat:FindFirstChild("Model")
+      
+      if boatModel and boatModel:FindFirstChild("Part") then
+         local boatPosition = boatModel.Part.Position
+         teleportPlayer(boatPosition.X, boatPosition.Y, boatPosition.Z)
+         Rayfield:Notify({
+            Title = "Skull Hub",
+            Content = "🟩 Teleported to Archaeologists Boat!",
+            Duration = 3,
+            Image = "check",
+         })
+      else
+         Rayfield:Notify({
+            Title = "Skull Hub",
+            Content = "🟥 Archaeologists Boat not found!",
+            Duration = 3,
+            Image = "circle-x",
+         })
+      end
+   end,
+})
+
 --Appraise
 local Section = appr:CreateSection("🐟 Main")
 local apprmutation = appr:CreateDropdown({
@@ -904,7 +936,7 @@ local apprmutation = appr:CreateDropdown({
       local selectedMutation = Options[1]
       _G.apprmutation = selectedMutation:gsub(".* ", "")
          Rayfield:Notify({
-         Title = "🟨 Test",
+         Title = "🟨 Skull hub",
          Content = "Mutation selected: " .._G.apprmutation,
          Duration = 3,
          Image = "check",
@@ -921,7 +953,7 @@ local cweightappr = appr:CreateInput({
    Callback = function(Text)
          _G.apprweight = Text
          Rayfield:Notify({
-         Title = "🟨 Test",
+         Title = "🟨 Skull Hub",
          Content = "Weight inputed: " .._G.apprweight,
          Duration = 3,
          Image = "check",
