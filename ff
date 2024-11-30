@@ -694,7 +694,8 @@ local tlocation = tp:CreateDropdown({
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
       "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
-      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike", "🦴 Uncharted Island"
+      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike", "🦴 Uncharted Island",
+      "🦖 Ancient Isle", "☄️ Ancient Archives"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -743,6 +744,10 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(-1257, 139, 1550)
          elseif selectedLocation == "🦴 Uncharted Island" then
             teleportPlayer(4033, 132, 77)
+         elseif selectedLocation == "🦖 Ancient Isle" then
+            teleportPlayer(6064.08, 195.129, 294.897)
+         elseif selectedLocation == "☄️ Ancient Archives" then
+            teleportPlayer(-3155.58, -754.73, 1746.87)
          end
    end,
 })
@@ -755,7 +760,8 @@ local ttotem = tp:CreateDropdown({
       "🌌 Aurora", 
       "🌬️ Windset", 
       "💨 Smokescreen", 
-      "🌪️ Tempest"
+      "🌪️ Tempest",
+      "🌔 Eclipse"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -773,6 +779,8 @@ local ttotem = tp:CreateDropdown({
             teleportPlayer(2789, 140, -625)
          elseif selectedTotem == "🌪️ Tempest" then
             teleportPlayer(35, 132.5, 1943)
+         elseif selectedTotem == "🌔 Eclipse" then
+            teleportPlayer(5965.42, 269.604, 851.17)
          end
    end,
 })
@@ -792,7 +800,8 @@ local tfishingRods = tp:CreateDropdown({
       "🛠️ Reinforced Rod",
       "🏴‍☠️ Scurvy Rod",
       "🏮 Rod Of The Depths",
-      "🦴 Relic Rod"
+      "🦴 Relic Rod",
+      "🐦‍🔥 Phoenix Rod"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -826,6 +835,8 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(1703, -903, 1443)
          elseif selectedRod == "🦴 Relic Rod" then
             teleportPlayer(4098, 40, 30)
+         elseif selectedRod == "🐦‍🔥 Phoenix Rod" then
+            teleportPlayer(5965.42, 269.604, 851.17)
          end
    end,
 })
