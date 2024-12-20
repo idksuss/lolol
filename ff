@@ -1,5 +1,5 @@
 --Load library
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/hungquan99/Arrayfield/main/Rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
@@ -637,7 +637,8 @@ local smerchant = ma:CreateDropdown({
    Name = "👨‍🦰 Select Merchant",
    Options = {
       "🌲 Marc", "🏖 Matt", "🌞 Max", "❄️ Mike", 
-      "⚛ Cort", "🌊 Maverick", "🌌 Mel", "⛏ Marc (The Depths)"
+      "⚛ Cort", "🌊 Maverick", "🌌 Mel", "⛏ Marc (The Depths)",
+      "🦴 Mann"
    },
    CurrentOption = "",  
    MultipleOptions = false,
@@ -660,6 +661,8 @@ local smerchant = ma:CreateDropdown({
          _G.smerchant = "Mel Merchant"
       elseif selectedMerchant == "⛏ Marc (The Depths)" then
          _G.smerchant = "The Depth Merchant"
+      elseif selectedMerchant == "🦴 Mann" then
+         _G.smerchant = "Mann Merchant"
       end
    end,
 })
@@ -694,7 +697,7 @@ local tlocation = tp:CreateDropdown({
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
       "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
-      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike", "🦴 Uncharted Island",
+      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike",
       "🦖 Ancient Isle", "☄️ Ancient Archives"
    },
    CurrentOption = {""},
@@ -742,8 +745,6 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(1700, 125, -2500)
          elseif selectedLocation == "⚒ Harvesters Spike" then
             teleportPlayer(-1257, 139, 1550)
-         elseif selectedLocation == "🦴 Uncharted Island" then
-            teleportPlayer(4033, 132, 77)
          elseif selectedLocation == "🦖 Ancient Isle" then
             teleportPlayer(6064.08, 195.129, 294.897)
          elseif selectedLocation == "☄️ Ancient Archives" then
@@ -761,7 +762,8 @@ local ttotem = tp:CreateDropdown({
       "🌬️ Windset", 
       "💨 Smokescreen", 
       "🌪️ Tempest",
-      "🌔 Eclipse"
+      "🌔 Eclipse",
+      "🪐 Meteor"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -781,6 +783,8 @@ local ttotem = tp:CreateDropdown({
             teleportPlayer(35, 132.5, 1943)
          elseif selectedTotem == "🌔 Eclipse" then
             teleportPlayer(5965.42, 269.604, 851.17)
+         elseif selectedTotem == "🪐 Meteor" then
+            teleportPlayer(-1949.57, 275.35, 229.7)
          end
    end,
 })
@@ -888,33 +892,30 @@ local titems = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
+local tfragments = tp:CreateDropdown({
+   Name = "🛡️ Select Fragment",
+   Options = {
+      "💚 Earth", 
+      "🌊 Deep Sea",
+      "☀️ Solar"
+   },
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "titems",
+   Callback = function(Options)
+         local selectedFragment = Options[1]
 
-local teleportab = tp:CreateButton({
-   Name = "🦴 Teleport To Archaeologists Boat",
-   Callback = function()
-      local boat = workspace["Archaeologists Boat"]
-      local boatModel = boat:FindFirstChild("Model")
-      
-      if boatModel and boatModel:FindFirstChild("Part") then
-         local boatPosition = boatModel.Part.Position
-         teleportPlayer(boatPosition.X, boatPosition.Y, boatPosition.Z)
-         Rayfield:Notify({
-            Title = "Skull Hub",
-            Content = "🟩 Teleported to Archaeologists Boat!",
-            Duration = 3,
-            Image = "check",
-         })
-      else
-         Rayfield:Notify({
-            Title = "Skull Hub",
-            Content = "🟥 Archaeologists Boat not found!",
-            Duration = 3,
-            Image = "circle-x",
-         })
-      end
+         if selectedFragment == "💚 Earth" then
+            teleportPlayer(5965.42, 269.604, 851.17)
+         elseif selectedFragment == "🌊 Deep Sea" then
+            teleportPlayer(5842.72656, 74.9356308, 383.082825)
+         elseif selectedFragment == "☀️ Solar" then
+            teleportPlayer(6073.41162, 443.945801, 685.227966)
+         end
    end,
 })
+
+local Divider = tp:CreateDivider()
 
 --Appraise
 local Section = appr:CreateSection("🐟 Main")
@@ -1021,7 +1022,7 @@ local ushiny = appr:CreateToggle({
 })
 
 --Treasure
-local Section = treasure:CreateSection("💎 Treasure (Beta)")
+local Section = treasure:CreateSection("💎 Treasure")
 
 local RMap = treasure:CreateButton({
    Name = "🗺️ Repair Maps (all you have)",
@@ -1072,6 +1073,48 @@ local pnivision = misc:CreateToggle({
 
 local Section = misc:CreateSection("🙍‍♂️ Local Player")
 
+local antiafk_enabled = true;
+local antiidlev = misc:CreateToggle({
+   Name = "👺 Anti Idle",
+   CurrentValue = true,
+   Flag = "didle",
+   Callback = function(state)
+      if antiafk_enabled == false then
+         if state then
+            task.spawn(function()
+               while true do
+                  local GC = getconnections or get_signal_cons
+                  if GC and (not Solara) and (not Xeno) then
+                     for i,v in pairs(GC(Services.Players.LocalPlayer.Idled)) do
+                        if v["Disable"] then
+                           v["Disable"](v)
+                        elseif v["Disconnect"] then
+                           v["Disconnect"](v)
+                        end
+                     end
+                  else
+                     Services.Players.LocalPlayer.Idled:Connect(function()
+                        Services.VirtualUser:CaptureController()
+                        Services.VirtualUser:ClickButton2(Vector2.new())
+                     end)
+                  end
+                  
+                  task.wait(300)
+               end
+            end)
+         end
+         end
+         if state then
+             antiafk_enabled = true;
+             Real_AFK.Parent = Fake_Folder
+             Fake_AFK.Parent = Services.ReplicatedStorage.events
+         else
+             Real_AFK.Parent = Services.ReplicatedStorage.events
+             Fake_AFK.Parent = Fake_Folder
+         end
+   end,
+})
+
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
    CurrentValue = false,
@@ -1113,6 +1156,22 @@ local pwalkwater = misc:CreateToggle({
       for i,v in pairs(workspace.zones.fishing:GetChildren()) do
 			if v.Name == "Ocean" then
 				v.CanCollide = Value
+         elseif v.Name == "Forsaken Shores Ocean" then
+            v.CanCollide = Value
+         elseif v.Name == "Deep Ocean" then
+            v.CanCollide = Value
+         elseif v.Name == "Ancient Isle Ocean" then
+            v.CanCollide = Value
+         elseif v.Name == "Moosewood Ocean" then
+            v.CanCollide = Value
+         elseif v.Name == "Moosewood Ocean Mythical" then
+            v.CanCollide = Value
+         elseif v.Name == "Roslit Bay Ocean" then
+            v.CanCollide = value
+         elseif v.Name == "Scallop Ocean" then
+            v.CanCollide = Value
+         elseif v.Name == "Snowcap Ocean" then
+            v.CanCollide = Value
 			end
 		end
    end,
