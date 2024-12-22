@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "Skull Hub | [🐟] Fisch",
+   Name = "Skull Hub - [🐟] Fisch",
    LoadingTitle = "Skull Hub",
    LoadingSubtitle = "by hungquan99",
    Theme = "Default",
@@ -698,7 +698,7 @@ local tlocation = tp:CreateDropdown({
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
       "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
       "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike",
-      "🦖 Ancient Isle", "☄️ Ancient Archives"
+      "🦖 Ancient Isle", "☄️ Ancient Archives", "🏔️ Northern Summit"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -749,6 +749,8 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(6064.08, 195.129, 294.897)
          elseif selectedLocation == "☄️ Ancient Archives" then
             teleportPlayer(-3155.58, -754.73, 1746.87)
+         elseif selectedLocation == "🏔️ Northern Summit" then
+            teleportPlayer(19540.86, 132.67, 5302.851)
          end
    end,
 })
@@ -763,7 +765,9 @@ local ttotem = tp:CreateDropdown({
       "💨 Smokescreen", 
       "🌪️ Tempest",
       "🌔 Eclipse",
-      "🪐 Meteor"
+      "🪐 Meteor",
+      "❄️ Avalanche",
+      "🌨️ Blizzard"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -785,6 +789,10 @@ local ttotem = tp:CreateDropdown({
             teleportPlayer(5965.42, 269.604, 851.17)
          elseif selectedTotem == "🪐 Meteor" then
             teleportPlayer(-1949.57, 275.35, 229.7)
+         elseif selectedTotem == "❄️ Avalanche" then
+            teleportPlayer(19711.5566, 467.630493, 6055.14355)
+         elseif selectedTotem == "🌨️ Blizzard" then
+            teleportPlayer(20146.2891, 742.95, 5805.228)
          end
    end,
 })
@@ -804,8 +812,11 @@ local tfishingRods = tp:CreateDropdown({
       "🛠️ Reinforced Rod",
       "🏴‍☠️ Scurvy Rod",
       "🏮 Rod Of The Depths",
-      "🦴 Relic Rod",
-      "🐦‍🔥 Phoenix Rod"
+      "🐦‍🔥 Phoenix Rod",
+      "🍬 Candy Cane Rod",
+      "🧊 Arctic Rod",
+      "❄️ Avalanche Rod",
+      "🗻 Summit Rod"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -837,10 +848,16 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(-2825, 215, 1512)
          elseif selectedRod == "🏮 Rod Of The Depths" then
             teleportPlayer(1703, -903, 1443)
-         elseif selectedRod == "🦴 Relic Rod" then
-            teleportPlayer(4098, 40, 30)
          elseif selectedRod == "🐦‍🔥 Phoenix Rod" then
             teleportPlayer(5965.42, 269.604, 851.17)
+         elseif selectedRod == "🍬 Candy Cane Rod" then
+            teleportPlayer(-187.87, 366.9, -9450.28)
+         elseif selectedRod == "🧊 Arctic Rod" then
+            teleportPlayer(19578.335, 132.67, 5304.58)
+         elseif selectedRod == "❄️ Avalanche Rod" then
+            teleportPlayer(19772.1895, 415.437, 5417.148)
+         elseif selectedRod == "🗻 Summit Rod" then
+            teleportPlayer(20211.17, 736.668, 5709.92)
          end
    end,
 })
@@ -858,7 +875,14 @@ local titems = tp:CreateDropdown({
       "⚓ Coral Geode",
       "👣 Flippers",
       "🪂 Glider",
+      "🪂 Advanced Glider",
       "🎺 Conception Conch",
+      "⛏️ Pickaxe",
+      "🧥 Winter Cloak",
+      "🎯 Basic Oxygen Tank",
+      "🎯 Beginner Oxygen Tank",
+      "🎯 Intermediate Oxygen Tank",
+      "🎯 Advanced Oxygen Tank"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -886,8 +910,22 @@ local titems = tp:CreateDropdown({
             teleportPlayer(-1640, -214, -2851.13)
          elseif selectedItem == "🪂 Glider" then
             teleportPlayer(-1640, -214, -2851.14)
+         elseif selectedItem == "🪂 Advanced Glider" then
+            teleportPlayer(19938.8, 1142.63, 5546.2)
          elseif selectedItem == "🎺 Conception Conch" then
             teleportPlayer(-1632, -214, -2862.15)
+         elseif selectedItem == "🎯 Basic Oxygen Tank" then
+            teleportPlayer(19521.6875, 132.67, 5325.5)
+         elseif selectedItem == "🎯 Beginner Oxygen Tank" then
+            teleportPlayer(19780.28, 415.437, 5384.82)
+         elseif selectedItem == "⛏️ Pickaxe" then
+            teleportPlayer(19779.5566, 415.437042, 5391.23633)
+         elseif selectedItem == "🎯 Intermediate Oxygen Tank" then
+            teleportPlayer(20216.1973, 736.66, 5713)
+         elseif selectedItem == "🧥 Winter Cloak" then
+            teleportPlayer(20168.2773, 780.802429, 5724.7251)
+         elseif selectedItem == "🎯 Advanced Oxygen Tank" then
+            teleportPlayer(19950.4, 1142.63, 5541.46)
          end
    end,
 })
@@ -1039,6 +1077,30 @@ local Ochest = treasure:CreateButton({
 })
 
 --Misc
+local Section = misc:CreateSection("🎮 Codes")
+local x2Code = {
+   "RFG",
+   "NorthernExpedition",
+   "MERRYFISCHMAS"
+}
+local RedeemBut = misc:CreateButton({
+   Name = "🎮 Redeem All Codes",
+   Callback = function()
+      function RedeemCode(value)
+         game:GetService("ReplicatedStorage").events.runcode:FireServer(value)
+      end
+      for i,v in pairs(x2Code) do
+         RedeemCode(v)
+      end
+      Rayfield:Notify({
+         Title = "Skull Hub",
+         Content = "💀 Redeemed all codes!",
+         Duration = 5,
+         Image = "check",
+      })
+   end,
+})
+
 local Section = misc:CreateSection("👁 Visual")
 local espisonadet = misc:CreateToggle({
    Name = "👁 Esp Isonade",
@@ -1073,45 +1135,19 @@ local pnivision = misc:CreateToggle({
 
 local Section = misc:CreateSection("🙍‍♂️ Local Player")
 
-local antiafk_enabled = true;
 local antiidlev = misc:CreateToggle({
    Name = "👺 Anti Idle",
    CurrentValue = true,
    Flag = "didle",
-   Callback = function(state)
-      if antiafk_enabled == false then
-         if state then
-            task.spawn(function()
-               while true do
-                  local GC = getconnections or get_signal_cons
-                  if GC and (not Solara) and (not Xeno) then
-                     for i,v in pairs(GC(Services.Players.LocalPlayer.Idled)) do
-                        if v["Disable"] then
-                           v["Disable"](v)
-                        elseif v["Disconnect"] then
-                           v["Disconnect"](v)
-                        end
-                     end
-                  else
-                     Services.Players.LocalPlayer.Idled:Connect(function()
-                        Services.VirtualUser:CaptureController()
-                        Services.VirtualUser:ClickButton2(Vector2.new())
-                     end)
-                  end
-                  
-                  task.wait(300)
-               end
+   Callback = function(Value)
+      local vu = game:GetService("VirtualUser")
+            repeat wait() until game:IsLoaded() 
+            game:GetService("Players").LocalPlayer.Idled:connect(function()
+            game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+            vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+            wait(1)
+            vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
             end)
-         end
-         end
-         if state then
-             antiafk_enabled = true;
-             Real_AFK.Parent = Fake_Folder
-             Fake_AFK.Parent = Services.ReplicatedStorage.events
-         else
-             Real_AFK.Parent = Services.ReplicatedStorage.events
-             Fake_AFK.Parent = Fake_Folder
-         end
    end,
 })
 
@@ -1129,6 +1165,36 @@ local doxygen = misc:CreateToggle({
    end,
 })
 doxygen:Set(true)
+
+local dtemperature = misc:CreateToggle({
+   Name = "🟠 Disable Temperature",
+   CurrentValue = false,
+   Flag = "dtemperature",
+   Callback = function(Atemperature)
+      for _, player in pairs(game.Players:GetPlayers()) do
+         local Temperature = player.Character and player.Character:FindFirstChild("client") and player.Character.client:FindFirstChild("temperature")
+         if Temperature then
+            Temperature.Enabled = not Atemperature
+         end
+      end
+   end,
+})
+dtemperature:Set(true)
+
+local dpeaks = misc:CreateToggle({
+   Name = "🔵 Disable Oxygen (Peaks)",
+   CurrentValue = false,
+   Flag = "dpeaks",
+   Callback = function(Apeaks)
+      for _, player in pairs(game.Players:GetPlayers()) do
+         local oxygenp = player.Character and player.Character:FindFirstChild("client") and player.Character.client:FindFirstChild("oxygen(peaks)")
+         if oxygenp then
+            oxygenp.Enabled = not Apeaks
+         end
+      end
+   end,
+})
+dpeaks:Set(true)
 
 local NoclipT = misc:CreateToggle({
    Name = "👻 Noclip",
@@ -1322,4 +1388,11 @@ local themes = setting:CreateDropdown({
             Window.ModifyTheme('Serenity')
          end
    end,
+})
+
+Rayfield:Notify({
+   Title = "Skull Hub",
+   Content = "🟩 Script loaded successfully!",
+   Duration = 5,
+   Image = "skull",
 })
