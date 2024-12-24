@@ -1147,6 +1147,8 @@ local antiidlev = misc:CreateToggle({
    CurrentValue = true,
    Flag = "didle",
    Callback = function(Value)
+      getgenv().afktoggle = Value
+
       local vu = game:GetService("VirtualUser")
       repeat wait() until game:IsLoaded() 
       game:GetService("Players").LocalPlayer.Idled:connect(function()
@@ -1154,6 +1156,14 @@ local antiidlev = misc:CreateToggle({
       vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
       wait(1)
       vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+      end)
+
+      spawn(function()
+         while wait(0.01) do
+               if getgenv().afktoggle then
+                     game:GetService("ReplicatedStorage").events.afk:FireServer(false)
+               end
+         end
       end)
    end,
 })
@@ -1221,34 +1231,45 @@ local NoclipT = misc:CreateToggle({
    end,
 })
 
+local workspace = game:GetService("Workspace")
+
+if not workspace:FindFirstChild("Skull Hub Fisch Folder") then
+   local folder = Instance.new("Folder", game:GetService("Workspace"))
+   folder.Name = "Skull Hub Fisch Folder"
+
+   local part = Instance.new("Part", folder)
+   part.Name = "Jesus"
+   part.Size = Vector3.new(500, 0.5, 500)
+   part.Anchored = true
+   part.Transparency = 1
+   part.Position = Vector3.new(character.HumanoidRootPart.CFrame.X, 126.5, character.HumanoidRootPart.CFrame.Z)
+end
+
 local pwalkwater = misc:CreateToggle({
-   Name = "🌊 Walk On Ocean",
+   Name = "🌊 Walk On Water",
    CurrentValue = false,
    Flag = "wotF",
    Callback = function(Value)
-      for i,v in pairs(workspace.zones.fishing:GetChildren()) do
-			if v.Name == "Ocean" then
-				v.CanCollide = Value
-         elseif v.Name == "Forsaken Shores Ocean" then
-            v.CanCollide = Value
-         elseif v.Name == "Deep Ocean" then
-            v.CanCollide = Value
-         elseif v.Name == "Ancient Isle Ocean" then
-            v.CanCollide = Value
-         elseif v.Name == "Moosewood Ocean" then
-            v.CanCollide = Value
-         elseif v.Name == "Moosewood Ocean Mythical" then
-            v.CanCollide = Value
-         elseif v.Name == "Roslit Bay Ocean" then
-            v.CanCollide = value
-         elseif v.Name == "Scallop Ocean" then
-            v.CanCollide = Value
-         elseif v.Name == "Snowcap Ocean" then
-            v.CanCollide = Value
-			end
-		end
+      getgenv().walkonwatertoggle = Value
    end,
 })
+
+spawn(function()
+   while wait(0.01) do
+         if getgenv().walkonwatertoggle then
+               local player = game.Players.LocalPlayer
+               local character = player.Character or player.CharacterAdded:Wait()
+               local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+               local folder = game:GetService("Workspace"):FindFirstChild("Skull Hub Fisch Folder")
+               
+               if folder then
+                     folder:FindFirstChild("Jesus").Position = Vector3.new(humanoidRootPart.Position.X, 126.5, humanoidRootPart.Position.Z)
+               end
+         end
+
+         game:GetService("Workspace"):FindFirstChild("Skull Hub Fisch Folder"):FindFirstChild("Jesus").CanCollide = getgenv().walkonwatertoggle
+   end
+end)
 
 local Divider = misc:CreateDivider()
 
