@@ -445,7 +445,7 @@ end
 --Tabs
 local ma = Window:CreateTab("Farm", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
-local appr = Window:CreateTab("Appraise", "badge-dollar-sign")
+local appr = Window:CreateTab("Appraise (Beta)", "badge-dollar-sign")
 local treasure = Window:CreateTab("Treasure", "gem")
 local misc = Window:CreateTab("Misc", "boxes")
 local setting = Window:CreateTab("UI Settings", "settings-2")
@@ -469,12 +469,12 @@ local infoButton = ma:CreateButton({
 local Section = ma:CreateSection("🎣 Auto Cast")
 local acastmode = ma:CreateDropdown({
    Name = "🎣 Select Cast Mode",
-   Options = {"⚡ RemoteEvent", "🖱 Mouse"},
-   CurrentOption = {"⚡ RemoteEvent"},
+   Options = {"🟧 Rage", "🟩 Legit"},
+   CurrentOption = {"🟧 Rage"},
    MultipleOptions = false,
    Flag = "acastmode",
    Callback = function(Options)
-      if Options[1] == "⚡ RemoteEvent" then
+      if Options[1] == "🟧 Rage" then
          _G.acastmode = true
       else
          _G.acastmode = false
@@ -569,7 +569,7 @@ local areel = ma:CreateToggle({
    end,
 })
 
-local Section = ma:CreateSection("🔰 Farm Position")
+local Section = ma:CreateSection("🔰 Position")
 local tpmode = ma:CreateDropdown({
    Name = "🌎 Select Teleport Mode",
    Options = {"🟨 Instant", "🟩 Tween"},
@@ -698,7 +698,8 @@ local tlocation = tp:CreateDropdown({
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
       "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
       "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike",
-      "🦖 Ancient Isle", "☄️ Ancient Archives", "🏔️ Northern Summit"
+      "🦖 Ancient Isle", "☄️ Ancient Archives", "🏔️ Northern Summit", "🏔️ Northern Summit (2nd Camp)",
+      "🏔️ Northern Summit (3rd Camp)", "🏔️ Northern Summit (Top)"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -751,6 +752,12 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(-3155.58, -754.73, 1746.87)
          elseif selectedLocation == "🏔️ Northern Summit" then
             teleportPlayer(19540.86, 132.67, 5302.851)
+         elseif selectedLocation == "🏔️ Northern Summit (2nd Camp)" then
+            teleportPlayer(19738.25, 416, 5409)
+         elseif selectedLocation == "🏔️ Northern Summit (3rd Camp)" then
+            teleportPlayer(20248.7148, 730.922119, 5700.44531)
+         elseif selectedLocation == "🏔️ Northern Summit (Top)" then
+            teleportPlayer(19971.7402, 1142.63428, 5571.56543)
          end
    end,
 })
@@ -1141,13 +1148,13 @@ local antiidlev = misc:CreateToggle({
    Flag = "didle",
    Callback = function(Value)
       local vu = game:GetService("VirtualUser")
-            repeat wait() until game:IsLoaded() 
-            game:GetService("Players").LocalPlayer.Idled:connect(function()
-            game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-            vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-            wait(1)
-            vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-            end)
+      repeat wait() until game:IsLoaded() 
+      game:GetService("Players").LocalPlayer.Idled:connect(function()
+      game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+      vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+      wait(1)
+      vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+      end)
    end,
 })
 
