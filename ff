@@ -67,6 +67,7 @@ _G.apprbig = false
 _G.apprgiant = false
 
 --Functions
+
 local function autoRepairMap()
    local p = game.Players.LocalPlayer
    local backpack = p:WaitForChild("Backpack")
@@ -447,6 +448,7 @@ local ma = Window:CreateTab("Farm", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
 local appr = Window:CreateTab("Appraise (Beta)", "badge-dollar-sign")
 local treasure = Window:CreateTab("Treasure", "gem")
+local webh = Window:CreateTab("Webhook", "app-window")
 local misc = Window:CreateTab("Misc", "boxes")
 local setting = Window:CreateTab("UI Settings", "settings-2")
 
@@ -566,69 +568,6 @@ local areel = ma:CreateToggle({
    Callback = function(AreelV)
          _G.areel = AreelV
          AutoReel()
-   end,
-})
-
-local Section = ma:CreateSection("🔰 Position")
-local tpmode = ma:CreateDropdown({
-   Name = "🌎 Select Teleport Mode",
-   Options = {"🟨 Instant", "🟩 Tween"},
-   CurrentOption = {"🟨 Instant"},
-   MultipleOptions = false,
-   Flag = "tpmode",
-   Callback = function(Options)
-      if Options[1] == "🟨 Instant" then
-         _G.tpmode = true
-      else
-         _G.tpmode = false
-      end
-   end,
-})
-
-local savedPosition = nil
-local savep = ma:CreateButton({
-   Name = "🟩 Save Position",
-   Callback = function()
-      local player = game.Players.LocalPlayer
-      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-         savedPosition = player.Character.HumanoidRootPart.Position
-         Rayfield:Notify({
-         Title = "Skull Hub",
-         Content = "🟩 Position saved!",
-         Duration = 3,
-         Image = "check",
-      })
-      else
-         Rayfield:Notify({
-         Title = "Skull Hub",
-         Content = "🟥 Position not saved!",
-         Duration = 3,
-         Image = "circle-x",
-      })
-      end
-   end,
-})
-
-local teleportp = ma:CreateButton({
-   Name = "🟨 Teleport To Saved Position",
-   Callback = function()
-      local player = game.Players.LocalPlayer
-      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and savedPosition then
-         player.Character.HumanoidRootPart.CFrame = CFrame.new(savedPosition)
-         Rayfield:Notify({
-         Title = "Skull Hub",
-         Content = "🟩 Teleported to saved position!",
-         Duration = 3,
-         Image = "check",
-      })
-      else
-         Rayfield:Notify({
-         Title = "Skull Hub",
-         Content = "🟥 No saved positions found!",
-         Duration = 3,
-         Image = "circle-x",
-      })
-      end
    end,
 })
 
@@ -960,7 +899,68 @@ local tfragments = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
+local Section = tp:CreateSection("🔰 Position")
+local tpmode = tp:CreateDropdown({
+   Name = "🌎 Select Teleport Mode",
+   Options = {"🟨 Instant", "🟩 Tween"},
+   CurrentOption = {"🟨 Instant"},
+   MultipleOptions = false,
+   Flag = "tpmode",
+   Callback = function(Options)
+      if Options[1] == "🟨 Instant" then
+         _G.tpmode = true
+      else
+         _G.tpmode = false
+      end
+   end,
+})
+
+local savedPosition = nil
+local savep = tp:CreateButton({
+   Name = "🟩 Save Position",
+   Callback = function()
+      local player = game.Players.LocalPlayer
+      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+         savedPosition = player.Character.HumanoidRootPart.Position
+         Rayfield:Notify({
+         Title = "Skull Hub",
+         Content = "🟩 Position saved!",
+         Duration = 3,
+         Image = "check",
+      })
+      else
+         Rayfield:Notify({
+         Title = "Skull Hub",
+         Content = "🟥 Position not saved!",
+         Duration = 3,
+         Image = "circle-x",
+      })
+      end
+   end,
+})
+
+local teleportp = tp:CreateButton({
+   Name = "🟨 Teleport To Saved Position",
+   Callback = function()
+      local player = game.Players.LocalPlayer
+      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and savedPosition then
+         player.Character.HumanoidRootPart.CFrame = CFrame.new(savedPosition)
+         Rayfield:Notify({
+         Title = "Skull Hub",
+         Content = "🟩 Teleported to saved position!",
+         Duration = 3,
+         Image = "check",
+      })
+      else
+         Rayfield:Notify({
+         Title = "Skull Hub",
+         Content = "🟥 No saved positions found!",
+         Duration = 3,
+         Image = "circle-x",
+      })
+      end
+   end,
+})
 
 --Appraise
 local Section = appr:CreateSection("🐟 Main")
@@ -1080,6 +1080,89 @@ local Ochest = treasure:CreateButton({
    Name = "💎 Open Chests (all you have)",
    Callback = function()
       openChests()
+   end,
+})
+
+--Webhook
+local Section = webh:CreateSection("🤡 Main")
+
+local function WebhookManager()
+   spawn(function()
+       while WebhookLog do
+           task.wait(WebhookDelay)
+           local OSTime = os.time()
+           local playerLocalTime = os.date('*t', OSTime)
+           local formattedLocalTime = string.format('%02d:%02d:%02d',
+                                            playerLocalTime.hour,
+                                            playerLocalTime.min,
+                                            playerLocalTime.sec)
+           
+           local player = game.Players.LocalPlayer
+           local playerUserId = player.UserId
+           local playerProfileUrl = "https://www.roblox.com/users/" .. playerUserId .. "/profile"
+
+           local MoneyPlayer = game:GetService("Players").LocalPlayer.leaderstats["C$"].Value
+           local LvlPlayer = game:GetService("Players").LocalPlayer.leaderstats.Level.Value
+
+           local Embed = {
+               title = 'Skull Hub - [🐟] Fisch',
+               color = 00000,
+               fields = {
+                   { name = 'Player Profile', value = playerProfileUrl },
+                   { name = '', value = '', },
+                   { name = 'C$ - Money 💸', value = '```' .. MoneyPlayer .. '```', inline = true },
+                   { name = 'Level 🎣', value = '```' .. LvlPlayer .. '```', inline = true },
+                   { name = '', value = '', },
+                   { name = 'Current Local Time', value = formattedLocalTime },
+               },
+               timestamp = os.date('!%Y-%m-%dT%H:%M:%SZ', OSTime),
+           }
+           local success, response = pcall(function()
+               return (syn and syn.request or http_request) {
+                   Url = WebhookUrl,
+                   Method = 'POST',
+                   Headers = { ['Content-Type'] = 'application/json' },
+                   Body = game:GetService('HttpService'):JSONEncode({
+                       username = 'Skull Hub',
+                       avatar_url = 'https://media.discordapp.net/attachments/1147608917887684628/1271500834533933066/3099-st-skull.png?ex=676c2e6e&is=676adcee&hm=7413d3c45c6a75b7cbdb3713f7a31768a6e02bb0e9dddb08047d038e891736ae&=&format=webp&quality=lossless',
+                       embeds = { Embed }
+                   }),
+               }
+           end)
+       end
+   end)
+end
+
+local InputWebhook = webh:CreateInput({
+   Name = "🔗 Webhook URL",
+   CurrentValue = "",
+   PlaceholderText = "URL",
+   RemoveTextAfterFocusLost = false,
+   Flag = "InputWebh",
+   Callback = function(Value)
+      WebhookUrl = Value
+   end,
+})
+
+local SliderWebhook = webh:CreateSlider({
+   Name = "📨 Send message per ? seconds",
+   Range = {1, 3600},
+   Increment = 1,
+   Suffix = "Secs",
+   CurrentValue = 60,
+   Flag = "Lmaof",
+   Callback = function(Value)
+      WebhookDelay = Value
+   end,
+})
+
+local ToggleWebhook = webh:CreateToggle({
+   Name = "🟣 Toggle Webhook (On/Off)",
+   CurrentValue = false,
+   Flag = "ffff",
+   Callback = function(Value)
+      WebhookLog = Value
+      WebhookManager()
    end,
 })
 
@@ -1251,25 +1334,24 @@ local pwalkwater = misc:CreateToggle({
    Flag = "wotF",
    Callback = function(Value)
       getgenv().walkonwatertoggle = Value
+      spawn(function()
+         while wait(0.01) do
+               if getgenv().walkonwatertoggle then
+                     local player = game.Players.LocalPlayer
+                     local character = player.Character or player.CharacterAdded:Wait()
+                     local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                     local folder = game:GetService("Workspace"):FindFirstChild("Skull Hub Fisch Folder")
+                     
+                     if folder then
+                           folder:FindFirstChild("Jesus").Position = Vector3.new(humanoidRootPart.Position.X, 126.5, humanoidRootPart.Position.Z)
+                     end
+               end
+      
+               game:GetService("Workspace"):FindFirstChild("Skull Hub Fisch Folder"):FindFirstChild("Jesus").CanCollide = getgenv().walkonwatertoggle
+         end
+      end)
    end,
 })
-
-spawn(function()
-   while wait(0.01) do
-         if getgenv().walkonwatertoggle then
-               local player = game.Players.LocalPlayer
-               local character = player.Character or player.CharacterAdded:Wait()
-               local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-               local folder = game:GetService("Workspace"):FindFirstChild("Skull Hub Fisch Folder")
-               
-               if folder then
-                     folder:FindFirstChild("Jesus").Position = Vector3.new(humanoidRootPart.Position.X, 126.5, humanoidRootPart.Position.Z)
-               end
-         end
-
-         game:GetService("Workspace"):FindFirstChild("Skull Hub Fisch Folder"):FindFirstChild("Jesus").CanCollide = getgenv().walkonwatertoggle
-   end
-end)
 
 local Divider = misc:CreateDivider()
 
