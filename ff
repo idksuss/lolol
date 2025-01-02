@@ -1171,7 +1171,9 @@ local Section = misc:CreateSection("🎮 Codes")
 local x2Code = {
    "RFG",
    "NorthernExpedition",
-   "MERRYFISCHMAS"
+   "MERRYFISCHMAS",
+   "NewYear",
+   "1BVisits"
 }
 local RedeemBut = misc:CreateButton({
    Name = "🎮 Redeem All Codes",
@@ -1184,9 +1186,9 @@ local RedeemBut = misc:CreateButton({
       end
       Rayfield:Notify({
          Title = "Skull Hub",
-         Content = "💀 Redeemed all codes!",
+         Content = "Redeemed all codes!",
          Duration = 5,
-         Image = "check",
+         Image = 137212456917215,
       })
    end,
 })
@@ -1504,5 +1506,5 @@ Rayfield:Notify({
    Title = "Skull Hub",
    Content = "🟩 Script loaded successfully!",
    Duration = 5,
-   Image = "skull",
+   Image = 137212456917215,
 })
